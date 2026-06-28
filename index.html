@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Typing Master Pro - Monkeytype Style</title>
+    <title>Ultimate Typing Master Pro - Fixed Auth</title>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -29,43 +29,46 @@
         
         .container { background-color: var(--container-bg); padding: 40px; border-radius: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); width: 100%; max-width: 950px; text-align: center; display: none; position: relative; }
 
-        /* Auth Modal */
+        /* Auth Screen Styling */
         #authModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); display: flex; justify-content: center; align-items: center; z-index: 2000; }
-        .auth-box { background: var(--container-bg); padding: 40px; border-radius: 20px; width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; }
-        .auth-input { width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 8px; border: 1px solid #ddd; outline: none; background: #fff; color: #111; }
-        .auth-btn { width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 10px; font-size: 1rem; }
+        .auth-box { background: var(--container-bg); padding: 40px; border-radius: 20px; width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; border: 1px solid rgba(0,0,0,0.05); }
+        .auth-input { width: 100%; padding: 14px; margin-bottom: 14px; border-radius: 8px; border: 1px solid var(--text-muted); outline: none; background: transparent; color: var(--text-main); font-size: 1rem; }
+        .auth-btn { width: 100%; padding: 14px; background: #3498db; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 12px; font-size: 1rem; }
         .google-btn { background: #ea4335; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .auth-toggle { cursor: pointer; color: #3498db; font-size: 0.9rem; margin-top: 15px; text-decoration: underline; }
+        .auth-toggle { cursor: pointer; color: #3498db; font-size: 0.95rem; margin-top: 15px; text-decoration: underline; }
 
-        /* Controls */
+        /* Top Panel Controls */
         .top-panel { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; width: 100%; gap: 10px; flex-wrap: wrap; }
         .btn-opt { padding: 8px 16px; border: 2px solid var(--border-color); background: transparent; color: var(--text-main); border-radius: 8px; cursor: pointer; font-weight: bold; }
         .btn-opt.active { background-color: var(--border-color); color: white; }
-        .user-badge { background-color: var(--border-color); color: white; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
+        .user-badge { background-color: var(--border-color); color: white; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        /* Game UI */
-        .logo { width: 110px; height: 110px; border-radius: 50%; margin-bottom: 15px; border: 3px solid var(--border-color); object-fit: cover; }
+        /* Core UI Components */
+        .logo { width: 110px; height: 110px; border-radius: 50%; margin-bottom: 15px; border: 3px solid var(--border-color); object-fit: cover; background: #000; }
         .stats { display: flex; justify-content: space-around; margin-bottom: 30px; background: rgba(0,0,0,0.03); padding: 15px; border-radius: 12px; }
         .stat-box { font-size: 1.5rem; font-weight: bold; color: var(--text-main); }
         .stat-box span { color: #e67e22; }
 
+        /* Highlighting and Typo system */
         .text-display { background: transparent; padding: 25px; font-size: 2.2rem; line-height: 1.6; text-align: left; margin-bottom: 25px; white-space: nowrap; overflow: hidden; display: flex; gap: 12px; align-items: center; position: relative; border: 1px solid rgba(0,0,0,0.05); border-radius: 12px; }
         .letter { position: relative; color: var(--text-muted); }
         .letter.correct { color: #27ae60; font-weight: bold; }
-        .letter.incorrect { color: #c0392b; background: rgba(192, 57, 43, 0.1); font-weight: bold; }
+        .letter.incorrect { color: #c0392b; background: rgba(192, 57, 43, 0.1); font-weight: bold; border-radius: 4px; }
         .letter.active::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 3px; background: var(--border-color); animation: blink 0.8s infinite alternate; }
         @keyframes blink { 0% { opacity: 0.2; } 100% { opacity: 1; } }
 
         .input-area { width: 100%; height: 100px; padding: 20px; font-size: 1.8rem; border: 2px solid var(--border-color); background: transparent; color: var(--text-main); border-radius: 12px; outline: none; text-align: center; resize: none; }
         .btn-logout { cursor: pointer; color: #c0392b; font-weight: bold; border: 2px solid #c0392b; padding: 6px 14px; border-radius: 8px; background: transparent; }
 
-        /* Certificate */
+        /* Professional Certificate Template */
         #certModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 3000; overflow-y: auto; padding: 40px 0; }
         .certificate-paper { background: #fffbf2; padding: 50px 70px; border: 25px solid #c9a054; width: 800px; height: 1050px; text-align: center; position: relative; color: #111; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; }
         .certificate-paper::before { content: ''; position: absolute; top: 15px; left: 15px; bottom: 15px; right: 15px; border: 2px solid #c9a054; pointer-events: none; }
         .cert-header { font-size: 1.1rem; font-weight: bold; color: #444; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; }
-        .cert-title { font-family: 'Georgia', serif; font-size: 3.5rem; font-weight: 900; color: #111; margin: 20px 0 10px 0; }
+        .cert-title { font-family: 'Georgia', serif; font-size: 3.5rem; font-weight: 900; color: #111; margin: 20px 0 10px 0; letter-spacing: 1px; }
         .cert-name { font-size: 2.8rem; font-weight: bold; color: #c9a054; border-bottom: 2px solid #ddd; display: inline-block; padding-bottom: 5px; margin: 20px 0; width: 80%; text-transform: uppercase; word-break: break-all; }
+        
+        /* 4-Box Metrics Section */
         .cert-table { width: 100%; border-collapse: collapse; margin: 30px 0; border: 1px solid #c9a054; }
         .cert-table th, .cert-table td { padding: 15px; border: 1px solid #e5dec9; text-align: center; }
         .cert-table th { background: #fdfaf2; color: #c9a054; font-size: 0.85rem; text-transform: uppercase; font-weight: bold; }
@@ -77,13 +80,13 @@
 
 <div id="authModal">
     <div class="auth-box">
-        <img src="./Gemini_Generated_Image_4zkfhc4zkfhc4zkf.png" style="width: 90px; border-radius: 50%; border: 2px solid #3498db; margin-bottom: 15px;" onerror="this.src='https://picsum.photos/90'">
-        <h2 id="authTitle">Sign In</h2>
+        <img src="./Gemini_Generated_Image_4zkfhc4zkfhc4zkf.png" class="logo" onerror="this.src='https://picsum.photos/90'">
+        <h2 id="authTitle" style="margin-top:0; color: var(--text-main);">Sign In with Account</h2>
         <input type="email" id="authEmail" class="auth-input" placeholder="Email Address">
         <input type="password" id="authPassword" class="auth-input" placeholder="Password">
-        <button class="auth-btn" id="emailBtn">Sign In</button>
-        <button class="auth-btn google-btn" id="googleBtn">🔑 Sign In with Google</button>
-        <p class="auth-toggle" id="toggleAuth">Don't have an account? Sign Up</p>
+        <button class="auth-btn" id="emailBtn">Sign In / Log In</button>
+        <button class="auth-btn google-btn" id="googleBtn">🔑 Continue with Google</button>
+        <p class="auth-toggle" id="toggleAuth">Don't have an account? Create / Sign Up</p>
     </div>
 </div>
 
@@ -93,7 +96,7 @@
             <button class="btn-opt" id="btnLight" onclick="setTheme(false)">Light</button>
             <button class="btn-opt" id="btnDark" onclick="setTheme(true)">Dark</button>
         </div>
-        <div class="user-display-info"><div id="userLabel" class="user-badge">Loading...</div></div>
+        <div class="user-display-info"><div id="userLabel" class="user-badge">Verifying...</div></div>
         <div class="time-controls">
             <button class="btn-opt" id="t15" onclick="setDuration(15)">15s</button>
             <button class="btn-opt" id="t30" onclick="setDuration(30)">30s</button>
@@ -102,14 +105,17 @@
     </div>
 
     <img src="./Gemini_Generated_Image_4zkfhc4zkfhc4zkf.png" class="logo" onerror="this.src='https://picsum.photos/110'">
-    <h1>Typing Speed Challenge</h1>
+    <h1 style="color: var(--text-main); margin-top: 5px;">Typing Speed Challenge</h1>
+    
     <div class="stats">
         <div class="stat-box">Timer: <span id="timer">60</span>s</div>
         <div class="stat-box">WPM: <span id="wpm">0</span></div>
         <div class="stat-box">Accuracy: <span id="accuracy">100</span>%</div>
     </div>
+    
     <div class="text-display" id="textDisplay"></div>
-    <textarea class="input-area" id="inputArea" placeholder="Type the words here..."></textarea>
+    <textarea class="input-area" id="inputArea" placeholder="Type the words here and press space..."></textarea>
+    
     <div style="display: flex; justify-content: center; gap: 20px; margin-top: 25px;">
         <button class="btn-opt active" onclick="initTest()">Restart Test</button>
         <button class="btn-logout" onclick="logout()">Logout</button>
@@ -124,10 +130,10 @@
                 <div class="cert-title">TYPING TEST CERTIFICATE</div>
                 <p style="font-size: 1.2rem; font-style: italic;">This Certificate is Proudly Presented to</p>
                 <div class="cert-name" id="userNameCert">Anisur Rahman</div>
-                <p style="max-width:85%; margin: 15px auto;">This certifies that the user has completed the professional typing challenge with outstanding results and accuracy.</p>
+                <p style="max-width:85%; margin: 15px auto; font-size:1.05rem; line-height:1.5;">This certifies that the user has successfully completed the timed professional typing benchmark session with the recorded properties below.</p>
             </div>
             <div>
-                <p style="font-weight:bold; color:#c9a054; text-transform:uppercase;">Performance Summary</p>
+                <p style="font-weight:bold; color:#c9a054; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;">Performance Summary</p>
                 <table class="cert-table">
                     <thead><tr><th>Typing Speed</th><th>Accuracy</th><th>Total Words</th><th>Duration</th></tr></thead>
                     <tbody><tr>
@@ -137,24 +143,24 @@
                         <td><span id="resTime">60</span> Seconds</td>
                     </tr></tbody>
                 </table>
-                <div style="background:#fff7e6; padding:15px; border-radius:6px; border:1px solid #f3ebd4;">
-                    Date: <span id="certDate"></span> | ID: PEC-<span id="certId"></span>
+                <div style="background:#fff7e6; padding:15px; border-radius:6px; border:1px solid #f3ebd4; font-size:0.95rem;">
+                    Date of Assessment: <span id="certDate"></span> | Certificate Identifier ID: PEC-<span id="certId"></span>
                 </div>
             </div>
             <div>
                 <div class="cert-badge">CERTIFIED</div>
-                <p id="resMail" style="font-size:0.85rem; color:#666;">Verified via User ID Sync</p>
+                <p id="resMail" style="font-size:0.85rem; color:#666; margin:0;">Verified User Session Database Sync Account</p>
             </div>
         </div>
-        <div style="display:flex; gap:20px;">
-            <button class="auth-btn" style="background:#27ae60; width:auto; padding:12px 40px;" onclick="downloadPDF()">Download PDF</button>
+        <div style="display:flex; gap:20px; margin-bottom: 20px;">
+            <button class="auth-btn" style="background:#27ae60; width:auto; padding:12px 40px;" onclick="downloadPDF()">Download Official PDF</button>
             <button class="auth-btn" style="background:#c0392b; width:auto; padding:12px 40px;" onclick="closeModal()">Close</button>
         </div>
     </div>
 </div>
 
 <script>
-    // 🔗 CONFIGURATION & DATA SYNC
+    // 🔗 DATABASE ENVIRONMENT CONFIG
     const firebaseConfig = {
         apiKey: "AIzaSyALGB4aTo3iAjLxd7DlrjCXxL47j8mAs_k",
         authDomain: "prime-education-center-d062f.firebaseapp.com",
@@ -164,8 +170,11 @@
         appId: "1:574793414476:web:32cdff11694266e36b81e9",
         measurementId: "G-MR2PPXR269"
     };
+    
+    // গুগল শিট লিংক ভেরিফাইড (এটি ঠিক আছে)
     const SHEET_URL = "https://script.google.com/a/macros/auroramy.com/s/AKfycbw4W4W6lhc3SDs1Gvhf1yMzq2fYgj3JKrQlqA4WqhXNDwlGiTepoHazwTEHBdnM2k1syQ/exec";
 
+    // Initialize Global Instances
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -174,6 +183,7 @@
     let currentWords = [], activeWordIdx = 0, maxDuration = 60, timer = 60, interval = null, isStarting = false, correctChars = 0, totalTyped = 0, wordsCount = 0;
     let inputArea, textDisplay;
 
+    // Mechanical Audio Engine
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playClick(isError = false) {
         if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -181,24 +191,31 @@
         const gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
         if(!isError) {
-            osc.type='triangle'; osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+            osc.type='triangle'; osc.frequency.setValueAtTime(550, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.04);
         } else {
-            osc.type='sawtooth'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+            osc.type='sawtooth'; osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.12);
         }
     }
 
-    // 🔒 AUTH HANDLER
+    // AUTH STATE CONTROLLER
     auth.onAuthStateChanged(user => {
         if (user) {
             document.getElementById('authModal').style.display = "none";
             document.getElementById('app').style.display = "block";
             let name = user.displayName || user.email.split('@')[0];
             document.getElementById('userLabel').innerText = `${name} (${user.email})`;
-            fetch(SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ name: name, email: user.email, event: "login" }) });
+            
+            // Realtime Sync Deployment to Sheet Webhook
+            fetch(SHEET_URL, { 
+                method: "POST", 
+                mode: "no-cors", 
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: name, email: user.email, event: "login" }) 
+            });
             initTest();
         } else {
             document.getElementById('authModal').style.display = "flex";
@@ -206,23 +223,68 @@
         }
     });
 
-    document.getElementById('googleBtn').onclick = () => auth.signInWithPopup(googleProvider).catch(e => alert(e.message));
-    document.getElementById('emailBtn').onclick = () => {
-        const e = document.getElementById('authEmail').value, p = document.getElementById('authPassword').value;
-        if(isSignUp) auth.createUserWithEmailAndPassword(e, p).catch(err => alert(err.message));
-        else auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
+    // Sign in with Google Pop-up Handler
+    document.getElementById('googleBtn').onclick = () => {
+        auth.signInWithPopup(googleProvider).catch(e => {
+            alert("Google Auth Configuration Error: Please make sure your Live Github URL is added under Authorized Domains inside Firebase console.\n\nDetails: " + e.message);
+        });
     };
 
+    // Dual-Action Email LogIn / SignUp Controller
     let isSignUp = false;
+    document.getElementById('emailBtn').onclick = () => {
+        const email = document.getElementById('authEmail').value.trim();
+        const password = document.getElementById('authPassword').value;
+        if(!email || !password) { alert("Please complete filling all authentication text boxes."); return; }
+        
+        if(isSignUp) {
+            const userName = prompt("Enter your Full Name for the Certificate:");
+            if(!userName) { alert("Name is required to register."); return; }
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((result) => {
+                    return result.user.updateProfile({ displayName: userName });
+                })
+                .then(() => {
+                    location.reload();
+                })
+                .catch(err => alert("Account Registration Failed: " + err.message));
+        } else {
+            auth.signInWithEmailAndPassword(email, password)
+                .catch(err => {
+                    if (err.code === 'auth/user-not-found') {
+                        alert("User account not found. Switching to Sign-Up Mode! Click the button again to build your new account profile.");
+                        document.getElementById('toggleAuth').click();
+                    } else {
+                        alert("Sign In Error: " + err.message);
+                    }
+                });
+        }
+    };
+
     document.getElementById('toggleAuth').onclick = () => {
         isSignUp = !isSignUp;
-        document.getElementById('authTitle').innerText = isSignUp ? "Sign Up" : "Sign In";
-        document.getElementById('emailBtn').innerText = isSignUp ? "Create Account" : "Sign In";
-        document.getElementById('toggleAuth').innerText = isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up";
+        document.getElementById('authTitle').innerText = isSignUp ? "Create New Account" : "Sign In with Account";
+        document.getElementById('emailBtn').innerText = isSignUp ? "Sign Up & Start" : "Sign In / Log In";
+        document.getElementById('toggleAuth').innerText = isSignUp ? "Already have an account? Sign In" : "Don't have an account? Create / Sign Up";
     };
 
-    function logout() { fetch(SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ name: auth.currentUser.email, event: "logout" }) }); auth.signOut().then(() => location.reload()); }
+    function logout() { 
+        if(auth.currentUser) {
+            let name = auth.currentUser.displayName || auth.currentUser.email.split('@')[0];
+            fetch(SHEET_URL, { 
+                method: "POST", 
+                mode: "no-cors", 
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: name, email: auth.currentUser.email, event: "logout" }) 
+            });
+        }
+        auth.signOut().then(() => {
+            location.reload();
+        }); 
+    }
 
+    // Theme Management Engine
     function setTheme(dark) {
         localStorage.setItem('typingThemeDark', dark);
         document.body.classList.toggle('dark-theme', dark);
@@ -232,20 +294,27 @@
 
     function setDuration(s) { maxDuration = s; document.querySelectorAll('.time-controls .btn-opt').forEach(b => b.classList.remove('active')); document.getElementById(`t${s}`).classList.add('active'); initTest(); }
 
+    // Dynamic Engine for CharacterHighlighting
     function render() {
         textDisplay.innerHTML = '';
         let start = Math.max(0, activeWordIdx - 1);
-        if (start + 6 >= currentWords.length) for(let i=0; i<30; i++) currentWords.push({ text: wordBank[Math.floor(Math.random()*wordBank.length)], status:'pending' });
+        if (start + 6 >= currentWords.length) {
+            for(let i=0; i<30; i++) currentWords.push({ text: wordBank[Math.floor(Math.random()*wordBank.length)], status:'pending' });
+        }
         for (let i = start; i < start + 6; i++) {
             const span = document.createElement('span'); span.className = 'word';
             if(i === activeWordIdx) span.className += ' active';
             let target = currentWords[i].text, typed = i === activeWordIdx ? inputArea.value : "";
+            
             target.split('').forEach((l, idx) => {
                 const charSpan = document.createElement('span'); charSpan.className = 'letter'; charSpan.innerText = l;
                 if(i === activeWordIdx) {
                     if(typed[idx] == null) { if(idx === typed.length) charSpan.className += ' active'; }
                     else charSpan.className += (typed[idx] === l ? " correct" : " incorrect");
-                } else { if(currentWords[i].status === 'correct') charSpan.className += ' correct'; if(currentWords[i].status === 'incorrect') charSpan.className += ' incorrect'; }
+                } else { 
+                    if(currentWords[i].status === 'correct') charSpan.className += ' correct'; 
+                    if(currentWords[i].status === 'incorrect') charSpan.className += ' incorrect'; 
+                }
                 span.appendChild(charSpan);
             });
             textDisplay.appendChild(span);
@@ -269,21 +338,36 @@
         document.getElementById('resTime').innerText = maxDuration;
         document.getElementById('certDate').innerText = new Date().toLocaleDateString();
         document.getElementById('certId').innerText = Math.floor(10000+Math.random()*90000);
-        document.getElementById('resMail').innerText = "Verified: " + auth.currentUser.email;
+        document.getElementById('resMail').innerText = "Verified Account Session: " + auth.currentUser.email;
     }
 
     window.onload = () => {
         inputArea = document.getElementById('inputArea'); textDisplay = document.getElementById('textDisplay');
         setTheme(localStorage.getItem('typingThemeDark') === 'true');
+        
         inputArea.oninput = e => {
-            if(!isStarting) { isStarting = true; interval = setInterval(() => { timer--; document.getElementById('timer').innerText = timer; if(timer<=0) endGame(); }, 1000); }
-            if(e.inputType !== "deleteContentBackward") { let t = inputArea.value.trim(), target = currentWords[activeWordIdx].text; playClick(t && !target.startsWith(t)); }
+            if(!isStarting) { 
+                isStarting = true; 
+                interval = setInterval(() => { timer--; document.getElementById('timer').innerText = timer; if(timer<=0) endGame(); }, 1000); 
+            }
+            if(e.inputType !== "deleteContentBackward") { 
+                let t = inputArea.value.trim(), target = currentWords[activeWordIdx].text; 
+                playClick(t && !target.startsWith(t)); 
+            }
             render();
         };
+        
         inputArea.onkeydown = e => {
             if(e.key === ' ') {
                 e.preventDefault(); let val = inputArea.value.trim().toLowerCase(); if(!val) return;
-                let obj = currentWords[activeWordIdx]; if(val === obj.text) { obj.status = 'correct'; correctChars += obj.text.length + 1; } else { obj.status = 'incorrect'; playClick(true); }
+                let obj = currentWords[activeWordIdx]; 
+                if(val === obj.text) { 
+                    obj.status = 'correct'; 
+                    correctChars += obj.text.length + 1; 
+                } else { 
+                    obj.status = 'incorrect'; 
+                    playClick(true); 
+                }
                 totalTyped += obj.text.length + 1; wordsCount++; activeWordIdx++; inputArea.value = ""; 
                 document.getElementById('accuracy').innerText = Math.round((correctChars / totalTyped) * 100) || 0;
                 document.getElementById('wpm').innerText = Math.round((correctChars/5)/((maxDuration-timer)/60)) || 0;
